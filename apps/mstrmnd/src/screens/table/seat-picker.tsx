@@ -4,9 +4,9 @@ import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import type { Agent, AgentId, Preset } from "@/agents/roster";
 import { AgentAvatar } from "@/components/agent-avatar";
 import { ThemedText } from "@/components/themed-text";
-import { colors, radius, spacing, tint } from "@/theme";
+import { colors, radius, shadows, spacing, tint } from "@/theme";
 
-/** Preset tables across the top, individual seats below. */
+/** Preset chips across the top, individual seats below. */
 export function SeatPicker({
   agents,
   presets,
@@ -22,42 +22,52 @@ export function SeatPicker({
   onPreset(id: string): void;
   onToggle(id: AgentId): void;
 }) {
+  const active = presets.find((p) => p.id === presetId);
+
   return (
     <View style={styles.root}>
       <View style={styles.section}>
         <ThemedText variant="overline">Tables</ThemedText>
+
+        {/* Segmented pill row — selection is carried by a filled chip, not color. */}
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.presets}
+          contentContainerStyle={styles.chips}
         >
           {presets.map((preset) => {
-            const active = preset.id === presetId;
+            const on = preset.id === presetId;
             return (
               <Pressable
                 key={preset.id}
                 accessibilityRole="button"
-                accessibilityState={{ selected: active }}
+                accessibilityState={{ selected: on }}
                 onPress={() => onPreset(preset.id)}
                 style={({ pressed }) => [
-                  styles.preset,
-                  active && styles.presetActive,
+                  styles.chip,
+                  on && styles.chipOn,
                   pressed && styles.pressed,
                 ]}
               >
+                <Ionicons
+                  name={preset.icon as never}
+                  size={15}
+                  color={on ? colors.ink : colors.tertiaryLabel}
+                />
                 <ThemedText
                   variant="headline"
-                  style={{ color: active ? colors.label : colors.secondaryLabel }}
+                  style={{ color: on ? colors.ink : colors.secondaryLabel }}
                 >
                   {preset.name}
-                </ThemedText>
-                <ThemedText variant="caption" style={styles.presetHint}>
-                  {preset.description}
                 </ThemedText>
               </Pressable>
             );
           })}
         </ScrollView>
+
+        <ThemedText variant="subhead" style={styles.chipHint}>
+          {active ? active.description : "Your own selection."}
+        </ThemedText>
       </View>
 
       <View style={styles.section}>
@@ -80,10 +90,7 @@ export function SeatPicker({
                 onPress={() => onToggle(agent.id)}
                 style={({ pressed }) => [
                   styles.seat,
-                  {
-                    borderColor: seated ? tint(agent.accent, 0.5) : colors.border,
-                    backgroundColor: seated ? tint(agent.accent, 0.08) : colors.surface,
-                  },
+                  seated && { borderColor: tint(agent.accent, 0.35) },
                   pressed && styles.pressed,
                 ]}
               >
@@ -93,7 +100,7 @@ export function SeatPicker({
                   <ThemedText
                     variant="headline"
                     numberOfLines={1}
-                    style={{ color: seated ? colors.label : colors.secondaryLabel }}
+                    style={{ color: seated ? colors.ink : colors.secondaryLabel }}
                   >
                     {agent.name}
                   </ThemedText>
@@ -103,9 +110,9 @@ export function SeatPicker({
                 </View>
 
                 {seated ? (
-                  <Ionicons name="checkmark-circle" size={18} color={agent.accent} />
+                  <Ionicons name="checkmark-circle" size={19} color={agent.accent} />
                 ) : (
-                  <Ionicons name="add-circle-outline" size={18} color={colors.tertiaryLabel} />
+                  <Ionicons name="add-circle-outline" size={19} color={colors.tertiaryLabel} />
                 )}
               </Pressable>
             );
@@ -123,25 +130,22 @@ const styles = StyleSheet.create({
   section: {
     gap: spacing.md,
   },
-  presets: {
+  chips: {
     gap: spacing.sm,
     paddingRight: spacing.lg,
   },
-  preset: {
-    width: 170,
-    gap: spacing.xs,
-    backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.borderStrong,
-    padding: spacing.lg,
+  chip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+    borderRadius: radius.full,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
   },
-  presetActive: {
-    borderColor: tint(colors.violet, 0.6),
-    backgroundColor: tint(colors.violet, 0.1),
+  chipOn: {
+    backgroundColor: colors.surfaceSunken,
   },
-  presetHint: {
+  chipHint: {
     color: colors.tertiaryLabel,
   },
   seatsHeader: {
@@ -153,12 +157,15 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   seat: {
+    boxShadow: shadows.card,
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.md,
+    backgroundColor: colors.surface,
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: 1,
+    borderColor: colors.border,
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.lg,
   },
@@ -170,6 +177,6 @@ const styles = StyleSheet.create({
     color: colors.tertiaryLabel,
   },
   pressed: {
-    opacity: 0.65,
+    opacity: 0.6,
   },
 });

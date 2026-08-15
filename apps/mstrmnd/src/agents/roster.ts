@@ -112,7 +112,7 @@ You are THE VISIONARY. You refuse to let the room optimize something small. You 
     name: "The Quant",
     role: "Numbers & Risk",
     monogram: "QT",
-    accent: "#5B8DEF",
+    accent: colors.blue,
     tagline: "Show me the unit economics.",
     bio: "Converts every proposal into money and time. If the numbers haven't been named, the decision hasn't been made.",
     lens: "Unit economics, runway, expected value",
@@ -125,7 +125,7 @@ You are THE QUANT. You convert every proposal into numbers: cost, payback period
     name: "The Storyteller",
     role: "Narrative & Brand",
     monogram: "ST",
-    accent: "#E879F9",
+    accent: colors.fuchsia,
     tagline: "If you can't say it in one line, you don't have it.",
     bio: "Owns how the thing is understood. Believes positioning is a product decision, not a marketing task done at the end.",
     lens: "Positioning, narrative, brand, clarity",
@@ -181,6 +181,8 @@ export type Preset = {
   id: string;
   name: string;
   description: string;
+  /** Ionicons name shown on the preset chip. */
+  icon: string;
   members: AgentId[];
 };
 
@@ -189,30 +191,35 @@ export const PRESETS: Preset[] = [
     id: "full",
     name: "Full Board",
     description: "Everyone at the table. Loud, slow, thorough.",
+    icon: "grid-outline",
     members: ["architect", "operator", "closer", "contrarian", "visionary", "quant", "storyteller"],
   },
   {
     id: "ship",
     name: "Ship It",
     description: "Feasibility and execution. For build decisions.",
+    icon: "rocket-outline",
     members: ["architect", "operator", "contrarian"],
   },
   {
     id: "money",
     name: "Follow the Money",
     description: "Demand, pricing and unit economics.",
+    icon: "cash-outline",
     members: ["closer", "quant", "contrarian"],
   },
   {
     id: "bet",
     name: "Big Bet",
     description: "Ambition pressure-tested against reality.",
+    icon: "trending-up-outline",
     members: ["visionary", "quant", "contrarian", "operator"],
   },
   {
     id: "launch",
     name: "Launch",
     description: "Positioning, demand and the first week.",
+    icon: "megaphone-outline",
     members: ["storyteller", "closer", "operator"],
   },
 ];

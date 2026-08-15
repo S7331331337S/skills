@@ -7,7 +7,7 @@ import { AgentAvatar } from "@/components/agent-avatar";
 import { Screen } from "@/components/screen";
 import { ThemedText } from "@/components/themed-text";
 import { useHaptics } from "@/hooks/use-haptics";
-import { colors, radius, spacing, tint } from "@/theme";
+import { colors, radius, shadows, spacing, tint } from "@/theme";
 
 export function Roster() {
   const insets = useSafeAreaInsets();
@@ -56,7 +56,7 @@ function MemberCard({ agent }: { agent: Agent }) {
       }}
       style={({ pressed }) => [
         styles.card,
-        { borderColor: tint(agent.accent, 0.3) },
+        { borderColor: tint(agent.accent, 0.2) },
         pressed && styles.pressed,
       ]}
     >
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
   },
   card: {
+    boxShadow: shadows.card,
     flexDirection: "row",
     gap: spacing.lg,
     backgroundColor: colors.surface,

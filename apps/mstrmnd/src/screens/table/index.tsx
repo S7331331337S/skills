@@ -21,7 +21,7 @@ import { Wordmark } from "@/components/wordmark";
 import { useHaptics } from "@/hooks/use-haptics";
 import { useSessions } from "@/lib/session-store";
 import { useSettings } from "@/lib/settings-store";
-import { colors, radius, spacing, tint } from "@/theme";
+import { colors, radius, shadows, spacing } from "@/theme";
 
 import { SeatPicker } from "./seat-picker";
 
@@ -97,10 +97,14 @@ export function Table() {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.masthead}>
-            <Wordmark size={30} />
-            <ThemedText variant="subhead" style={styles.tagline}>
-              Put your decision in front of a board that argues.
-            </ThemedText>
+            <Wordmark />
+            {/* Two-tone display heading: the grey line sets up the ink one. */}
+            <View style={styles.hero}>
+              <ThemedText variant="hero" style={styles.heroMuted}>
+                Put it to
+              </ThemedText>
+              <ThemedText variant="hero">the board</ThemedText>
+            </View>
           </View>
 
           {!hasKey ? (
@@ -220,32 +224,36 @@ const styles = StyleSheet.create({
     gap: spacing.xl,
   },
   masthead: {
-    gap: spacing.xs,
+    gap: spacing.lg,
   },
-  tagline: {
-    color: colors.secondaryLabel,
-    maxWidth: 300,
+  hero: {
+    gap: 0,
+  },
+  heroMuted: {
+    color: colors.tertiaryLabel,
   },
   notice: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
-    backgroundColor: tint(colors.amber, 0.09),
+    backgroundColor: colors.surface,
     borderRadius: radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: tint(colors.amber, 0.28),
+    borderColor: colors.border,
+    boxShadow: shadows.card,
     padding: spacing.md,
   },
   field: {
     gap: spacing.md,
   },
   input: {
+    boxShadow: shadows.card,
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.borderStrong,
+    borderColor: colors.border,
     padding: spacing.lg,
     color: colors.label,
     fontFamily: "SpaceGrotesk_400Regular",
@@ -271,11 +279,12 @@ const styles = StyleSheet.create({
     paddingRight: spacing.lg,
   },
   starter: {
+    boxShadow: shadows.card,
     maxWidth: 230,
     backgroundColor: colors.surfaceRaised,
     borderRadius: radius.full,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.borderStrong,
+    borderColor: colors.border,
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.md,
   },
@@ -290,7 +299,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.md,
     gap: spacing.md,
-    backgroundColor: colors.void,
+    backgroundColor: colors.ground,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: colors.borderStrong,
   },

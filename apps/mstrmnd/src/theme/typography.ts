@@ -17,44 +17,45 @@ export const fonts = {
 } as const;
 
 export const type = {
+  /** Two-tone masthead heading. Tight tracking is what makes it read as display. */
   hero: {
     fontFamily: fonts.display,
-    fontSize: 40,
-    lineHeight: 44,
-    letterSpacing: -1.2,
-    color: colors.label,
+    fontSize: 44,
+    lineHeight: 47,
+    letterSpacing: -1.8,
+    color: colors.ink,
   },
   largeTitle: {
     fontFamily: fonts.display,
     fontSize: 30,
     lineHeight: 34,
-    letterSpacing: -0.8,
-    color: colors.label,
+    letterSpacing: -0.9,
+    color: colors.ink,
   },
   title: {
     fontFamily: fonts.displayMedium,
     fontSize: 22,
-    lineHeight: 27,
-    letterSpacing: -0.4,
-    color: colors.label,
+    lineHeight: 28,
+    letterSpacing: -0.5,
+    color: colors.ink,
   },
   headline: {
     fontFamily: fonts.bodySemibold,
-    fontSize: 17,
-    lineHeight: 22,
+    fontSize: 16,
+    lineHeight: 21,
     letterSpacing: -0.2,
-    color: colors.label,
+    color: colors.ink,
   },
   body: {
     fontFamily: fonts.body,
     fontSize: 16,
-    lineHeight: 24,
-    color: colors.label,
+    lineHeight: 25,
+    color: colors.ink,
   },
   subhead: {
     fontFamily: fonts.body,
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 21,
     color: colors.secondaryLabel,
   },
   caption: {
@@ -63,18 +64,18 @@ export const type = {
     lineHeight: 16,
     color: colors.secondaryLabel,
   },
-  /** All-caps micro label used for section headers and agent roles. */
+  /** All-caps micro label for section headers and member roles. */
   overline: {
     fontFamily: fonts.monoMedium,
-    fontSize: 11,
+    fontSize: 10,
     lineHeight: 14,
-    letterSpacing: 1.6,
+    letterSpacing: 1.4,
     textTransform: "uppercase",
     color: colors.tertiaryLabel,
   },
   mono: {
     fontFamily: fonts.mono,
-    fontSize: 13,
+    fontSize: 12.5,
     lineHeight: 19,
     color: colors.secondaryLabel,
   },

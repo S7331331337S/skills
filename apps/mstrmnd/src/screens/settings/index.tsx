@@ -18,7 +18,7 @@ import { ThemedText } from "@/components/themed-text";
 import { useHaptics } from "@/hooks/use-haptics";
 import { useSessions } from "@/lib/session-store";
 import { MODELS, useSettings } from "@/lib/settings-store";
-import { colors, fonts, radius, spacing, tint } from "@/theme";
+import { colors, fonts, radius, shadows, spacing, tint } from "@/theme";
 
 export function Settings() {
   const insets = useSafeAreaInsets();
@@ -259,11 +259,11 @@ const styles = StyleSheet.create({
   },
   keyActive: {
     gap: spacing.md,
-    backgroundColor: tint(colors.success, 0.07),
+    backgroundColor: tint(colors.success, 0.06),
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: tint(colors.success, 0.3),
+    borderColor: tint(colors.success, 0.25),
     padding: spacing.lg,
   },
   keyRow: {
@@ -276,20 +276,21 @@ const styles = StyleSheet.create({
     color: colors.tertiaryLabel,
   },
   keyForm: {
+    boxShadow: shadows.card,
     gap: spacing.md,
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.borderStrong,
+    borderColor: colors.border,
     padding: spacing.lg,
   },
   input: {
-    backgroundColor: colors.void,
+    backgroundColor: colors.ground,
     borderRadius: radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.borderStrong,
+    borderColor: colors.border,
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.lg,
     color: colors.label,
@@ -300,6 +301,7 @@ const styles = StyleSheet.create({
     color: colors.tertiaryLabel,
   },
   option: {
+    boxShadow: shadows.card,
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.md,
@@ -307,13 +309,13 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.borderStrong,
+    borderColor: colors.border,
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.lg,
   },
   optionActive: {
-    borderColor: tint(colors.violet, 0.55),
-    backgroundColor: tint(colors.violet, 0.08),
+    borderColor: tint(colors.violet, 0.4),
+    backgroundColor: tint(colors.violet, 0.06),
   },
   pressed: {
     opacity: 0.7,

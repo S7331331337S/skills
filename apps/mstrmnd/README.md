@@ -98,5 +98,11 @@ value is a token in `src/theme/`.
   uploaded. "Delete all sessions" in Settings clears them.
 - The room stops cleanly if you navigate away mid-deliberation, and one member
   failing doesn't abort the rest of the board.
-- Dark-only by design. The palette is static rather than platform-semantic so the
-  same values can feed Reanimated styles and gradients.
+- Light-only by design. The rule that holds the visual system together: **the
+  interface is monochrome, and color means something.** Greys carry structure; a
+  hue appears only to identify a board member or report status. That's why the
+  brand gradient lives on the mark alone and the primary button is solid ink.
+- Member accents are deliberately deeper than the usual bright web palette — a
+  hue tuned for a near-black ground vibrates on white.
+- The palette is static rather than platform-semantic, so the same values can
+  feed Reanimated styles and gradients.

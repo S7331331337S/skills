@@ -75,9 +75,11 @@ export function AgentAvatar({
           styles.body,
           {
             borderRadius: dimension / 2,
-            backgroundColor: tint(agent.accent, dimmed ? 0.08 : 0.16),
-            borderColor: tint(agent.accent, dimmed ? 0.2 : 0.55),
-            opacity: dimmed ? 0.55 : 1,
+            // Alphas are low: over white these become the pale chips the rest of
+            // the interface is built from, not saturated blocks.
+            backgroundColor: tint(agent.accent, dimmed ? 0.05 : 0.11),
+            borderColor: tint(agent.accent, dimmed ? 0.14 : 0.32),
+            opacity: dimmed ? 0.6 : 1,
           },
         ]}
       >
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderWidth: 1,
     borderCurve: "continuous",
-    backgroundColor: colors.surfaceRaised,
+    backgroundColor: colors.surface,
     borderRadius: radius.full,
   },
 });

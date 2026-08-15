@@ -49,16 +49,16 @@ export default function RootLayout() {
 
   // Holding the splash until state is loaded keeps the first frame from
   // flashing an empty roster or the wrong engine badge.
-  if (!ready) return <View style={{ flex: 1, backgroundColor: colors.void }} />;
+  if (!ready) return <View style={{ flex: 1, backgroundColor: colors.ground }} />;
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <StatusBar style="light" />
+        <StatusBar style="dark" />
         <Stack
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: colors.void },
+            contentStyle: { backgroundColor: colors.ground },
             animation: "slide_from_right",
           }}
         >

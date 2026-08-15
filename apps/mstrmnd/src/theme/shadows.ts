@@ -1,12 +1,17 @@
+/**
+ * On a light ground, shadow is how a surface separates from the page — so it has
+ * to stay soft. Anything heavier than this reads as a dropped box rather than a
+ * raised card.
+ */
 export const shadows = {
-  card: "0 2px 10px rgba(0, 0, 0, 0.40)",
-  raised: "0 8px 24px rgba(0, 0, 0, 0.55)",
-  overlay: "0 16px 48px rgba(0, 0, 0, 0.65)",
+  card: "0 1px 2px rgba(17, 19, 26, 0.04), 0 1px 1px rgba(17, 19, 26, 0.03)",
+  raised: "0 4px 16px rgba(17, 19, 26, 0.08), 0 1px 2px rgba(17, 19, 26, 0.04)",
+  overlay: "0 12px 32px rgba(17, 19, 26, 0.12), 0 2px 6px rgba(17, 19, 26, 0.05)",
 } as const;
 
-/** Colored glow behind an active agent's avatar or a primary CTA. */
-export function glow(hex: string, strength = 0.5): string {
-  return `0 0 24px ${hex}${Math.round(strength * 255)
+/** Colored halo behind a member's avatar while they hold the floor. */
+export function glow(hex: string, strength = 0.28): string {
+  return `0 0 20px ${hex}${Math.round(strength * 255)
     .toString(16)
     .padStart(2, "0")}`;
 }

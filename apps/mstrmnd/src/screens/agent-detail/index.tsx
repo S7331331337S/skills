@@ -94,7 +94,7 @@ function Block({
   children: React.ReactNode;
 }) {
   return (
-    <View style={[styles.block, { borderColor: tint(accent, 0.25) }]}>
+    <View style={[styles.block, { borderColor: tint(accent, 0.18) }]}>
       <ThemedText variant="overline" style={{ color: tint(accent, 0.9) }}>
         {label}
       </ThemedText>

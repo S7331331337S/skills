@@ -6,7 +6,7 @@ import { AgentAvatar } from "@/components/agent-avatar";
 import { ThemedText } from "@/components/themed-text";
 import { ThinkingDots } from "@/components/thinking-dots";
 import type { Turn } from "@/lib/types";
-import { colors, radius, spacing, tint } from "@/theme";
+import { colors, radius, shadows, spacing, tint } from "@/theme";
 
 import { RulingBody } from "./ruling-body";
 
@@ -22,9 +22,10 @@ export function TurnCard({ turn }: { turn: Turn }) {
       layout={LinearTransition.springify().damping(20)}
       style={[
         styles.card,
+        isRuling && styles.ruling,
         {
-          borderColor: speaking ? tint(agent.accent, 0.45) : colors.border,
-          backgroundColor: isRuling ? tint(colors.violet, 0.07) : colors.surface,
+          borderColor: speaking ? tint(agent.accent, 0.35) : colors.border,
+          backgroundColor: colors.surface,
         },
       ]}
     >
@@ -64,7 +65,11 @@ export function TurnCard({ turn }: { turn: Turn }) {
 }
 
 const styles = StyleSheet.create({
+  ruling: {
+    boxShadow: shadows.raised,
+  },
   card: {
+    boxShadow: shadows.card,
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: 1,

@@ -12,7 +12,7 @@ import { ThemedText } from "@/components/themed-text";
 import { useHaptics } from "@/hooks/use-haptics";
 import { useSessions } from "@/lib/session-store";
 import type { Session } from "@/lib/types";
-import { colors, radius, spacing, tint } from "@/theme";
+import { colors, radius, shadows, spacing, tint } from "@/theme";
 
 export function Sessions() {
   const router = useRouter();
@@ -181,10 +181,11 @@ const styles = StyleSheet.create({
   },
   row: {
     backgroundColor: colors.surface,
+    boxShadow: shadows.card,
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.borderStrong,
+    borderColor: colors.border,
     padding: spacing.lg,
     gap: spacing.md,
   },
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   verdict: {
-    backgroundColor: tint(colors.violet, 0.1),
+    backgroundColor: tint(colors.violet, 0.07),
     borderLeftWidth: 2,
     borderLeftColor: colors.violet,
     borderRadius: radius.sm,

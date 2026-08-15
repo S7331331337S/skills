@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   callBlock: {
     gap: spacing.sm,
-    backgroundColor: tint(colors.violet, 0.12),
+    backgroundColor: tint(colors.violet, 0.07),
     borderRadius: radius.md,
     borderCurve: "continuous",
     borderLeftWidth: 2,

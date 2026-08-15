@@ -13,7 +13,7 @@ import { ThemedText } from "@/components/themed-text";
 import { useHaptics } from "@/hooks/use-haptics";
 import { useSessions } from "@/lib/session-store";
 import type { Session } from "@/lib/types";
-import { colors, spacing, tint } from "@/theme";
+import { colors, spacing } from "@/theme";
 
 import { TurnCard } from "./turn-card";
 
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.md,
-    backgroundColor: tint(colors.void, 0.98),
+    backgroundColor: colors.ground,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: colors.borderStrong,
   },

@@ -1,4 +1,3 @@
-import { LinearGradient } from "expo-linear-gradient";
 import {
   ActivityIndicator,
   Pressable,
@@ -9,15 +8,19 @@ import {
 } from "react-native";
 
 import { useHaptics } from "@/hooks/use-haptics";
-import { brandGradient, colors, radius, spacing } from "@/theme";
+import { colors, radius, spacing } from "@/theme";
 
 import { ThemedText } from "./themed-text";
 
+/**
+ * Primary is solid ink rather than a gradient: on a light ground, weight reads as
+ * emphasis and color reads as meaning. The brand gradient stays on the mark.
+ */
 const variants = {
-  primary: { background: "transparent", label: colors.onTint, gradient: true },
-  secondary: { background: colors.surfaceOverlay, label: colors.label, gradient: false },
-  ghost: { background: "transparent", label: colors.secondaryLabel, gradient: false },
-  danger: { background: colors.danger, label: colors.onDark, gradient: false },
+  primary: { background: colors.ink, label: colors.onInk, bordered: false },
+  secondary: { background: colors.surfaceSunken, label: colors.ink, bordered: false },
+  ghost: { background: "transparent", label: colors.secondaryLabel, bordered: true },
+  danger: { background: colors.danger, label: colors.onTint, bordered: false },
 } as const;
 
 const sizes = {
@@ -48,17 +51,10 @@ export function Button({
   const s = sizes[size];
   const isOff = disabled || loading;
 
-  const body = (
-    <View style={[styles.body, { paddingVertical: s.paddingVertical }]}>
-      {loading ? (
-        <ActivityIndicator color={v.label} size="small" />
-      ) : (
-        <ThemedText variant={s.variant} style={{ color: v.label }}>
-          {title}
-        </ThemedText>
-      )}
-    </View>
-  );
+  // A disabled button becomes genuinely inert rather than a faded solid — fading
+  // ink to 35% on a light ground just reads as a grey button that should work.
+  const background = disabled ? colors.surfaceSunken : v.background;
+  const label = disabled ? colors.tertiaryLabel : v.label;
 
   return (
     <Pressable
@@ -73,23 +69,23 @@ export function Button({
         styles.base,
         {
           paddingHorizontal: s.paddingHorizontal,
-          backgroundColor: v.background,
-          opacity: isOff ? 0.4 : pressed ? 0.82 : 1,
-          transform: [{ scale: pressed && !isOff ? 0.98 : 1 }],
+          backgroundColor: background,
+          opacity: pressed && !isOff ? 0.85 : 1,
+          transform: [{ scale: pressed && !isOff ? 0.985 : 1 }],
         },
-        variant === "ghost" && styles.ghost,
+        v.bordered && styles.bordered,
         style,
       ]}
     >
-      {v.gradient ? (
-        <LinearGradient
-          colors={[...brandGradient]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={StyleSheet.absoluteFill}
-        />
-      ) : null}
-      {body}
+      <View style={[styles.body, { paddingVertical: s.paddingVertical }]}>
+        {loading ? (
+          <ActivityIndicator color={label} size="small" />
+        ) : (
+          <ThemedText variant={s.variant} style={{ color: label }}>
+            {title}
+          </ThemedText>
+        )}
+      </View>
     </Pressable>
   );
 }
@@ -101,7 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     overflow: "hidden",
   },
-  ghost: {
+  bordered: {
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: colors.borderStrong,
   },

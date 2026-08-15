@@ -23,7 +23,7 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.label,
+        tabBarActiveTintColor: colors.ink,
         tabBarInactiveTintColor: colors.tertiaryLabel,
         tabBarStyle: [
           styles.bar,
@@ -32,10 +32,10 @@ export default function TabsLayout() {
         ],
         tabBarItemStyle: styles.item,
         tabBarLabelStyle: styles.label,
-        // Glass over the gradient ground; on web this degrades to the solid fill below.
+        // Frosted glass over the page; on web this degrades to the solid fill below.
         tabBarBackground: () =>
           Platform.OS === "web" ? null : (
-            <BlurView tint="dark" intensity={40} style={StyleSheet.absoluteFill} />
+            <BlurView tint="light" intensity={60} style={StyleSheet.absoluteFill} />
           ),
       }}
     >
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   bar: {
     position: "absolute",
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.borderStrong,
+    borderTopColor: colors.border,
     backgroundColor: Platform.OS === "web" ? colors.surface : "transparent",
     elevation: 0,
   },
