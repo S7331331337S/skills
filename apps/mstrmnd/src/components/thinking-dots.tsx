@@ -11,20 +11,22 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { colors } from "@/theme";
+
 const DOTS = [0, 1, 2];
 
 /** Three dots rising in sequence while a member composes their turn. */
-export function ThinkingDots({ color }: { color: string }) {
+export function ThinkingDots() {
   return (
     <View style={styles.row}>
       {DOTS.map((i) => (
-        <Dot key={i} color={color} index={i} />
+        <Dot key={i} index={i} />
       ))}
     </View>
   );
 }
 
-function Dot({ color, index }: { color: string; index: number }) {
+function Dot({ index }: { index: number }) {
   const progress = useSharedValue(0);
 
   useEffect(() => {
@@ -47,7 +49,7 @@ function Dot({ color, index }: { color: string; index: number }) {
     transform: [{ translateY: -progress.value * 4 }],
   }));
 
-  return <Animated.View style={[styles.dot, { backgroundColor: color }, style]} />;
+  return <Animated.View style={[styles.dot, style]} />;
 }
 
 const styles = StyleSheet.create({
@@ -61,5 +63,6 @@ const styles = StyleSheet.create({
     width: 5,
     height: 5,
     borderRadius: 3,
+    backgroundColor: colors.tertiaryLabel,
   },
 });

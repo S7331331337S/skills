@@ -11,7 +11,7 @@ export default function NotFound() {
       <View style={styles.root}>
         <ThemedText variant="title">Nothing here.</ThemedText>
         <Link href="/" style={styles.link}>
-          <ThemedText variant="headline" style={{ color: colors.cyan }}>
+          <ThemedText variant="headline" style={{ color: colors.label }}>
             Back to the table
           </ThemedText>
         </Link>

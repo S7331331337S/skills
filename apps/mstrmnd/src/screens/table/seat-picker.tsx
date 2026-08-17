@@ -4,7 +4,7 @@ import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import type { Agent, AgentId, Preset } from "@/agents/roster";
 import { AgentAvatar } from "@/components/agent-avatar";
 import { ThemedText } from "@/components/themed-text";
-import { colors, radius, shadows, spacing, tint } from "@/theme";
+import { colors, radius, shadows, spacing } from "@/theme";
 
 /** Preset chips across the top, individual seats below. */
 export function SeatPicker({
@@ -90,7 +90,7 @@ export function SeatPicker({
                 onPress={() => onToggle(agent.id)}
                 style={({ pressed }) => [
                   styles.seat,
-                  seated && { borderColor: tint(agent.accent, 0.35) },
+                  seated && styles.seatOn,
                   pressed && styles.pressed,
                 ]}
               >
@@ -110,7 +110,7 @@ export function SeatPicker({
                 </View>
 
                 {seated ? (
-                  <Ionicons name="checkmark-circle" size={19} color={agent.accent} />
+                  <Ionicons name="checkmark-circle" size={19} color={colors.ink} />
                 ) : (
                   <Ionicons name="add-circle-outline" size={19} color={colors.tertiaryLabel} />
                 )}
@@ -165,9 +165,12 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: colors.hairline,
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.lg,
+  },
+  seatOn: {
+    borderColor: colors.hairlineStrong,
   },
   seatText: {
     flex: 1,

@@ -9,7 +9,7 @@ import { Button } from "@/components/button";
 import { Screen } from "@/components/screen";
 import { ThemedText } from "@/components/themed-text";
 import { useHaptics } from "@/hooks/use-haptics";
-import { colors, radius, spacing, tint } from "@/theme";
+import { colors, radius, shadows, spacing } from "@/theme";
 
 export function AgentDetail({ agentId }: { agentId: string }) {
   const router = useRouter();
@@ -55,9 +55,7 @@ export function AgentDetail({ agentId }: { agentId: string }) {
         <View style={styles.hero}>
           <AgentAvatar agent={agent} size="lg" speaking />
           <View style={styles.heroText}>
-            <ThemedText variant="overline" style={{ color: tint(agent.accent, 0.9) }}>
-              {agent.role}
-            </ThemedText>
+            <ThemedText variant="overline">{agent.role}</ThemedText>
             <ThemedText variant="largeTitle">{agent.name}</ThemedText>
           </View>
         </View>
@@ -66,17 +64,17 @@ export function AgentDetail({ agentId }: { agentId: string }) {
           {agent.bio}
         </ThemedText>
 
-        <Block accent={agent.accent} label="Lens">
+        <Block label="Lens">
           <ThemedText variant="body">{agent.lens}</ThemedText>
         </Block>
 
-        <Block accent={agent.accent} label="What they push for">
+        <Block label="What they push for">
           <ThemedText variant="body" style={styles.quote}>
             “{agent.tagline}”
           </ThemedText>
         </Block>
 
-        <Block accent={agent.accent} label="Character prompt">
+        <Block label="Character prompt">
           <ThemedText variant="mono">{agent.systemPrompt}</ThemedText>
         </Block>
       </ScrollView>
@@ -84,20 +82,10 @@ export function AgentDetail({ agentId }: { agentId: string }) {
   );
 }
 
-function Block({
-  accent,
-  label,
-  children,
-}: {
-  accent: string;
-  label: string;
-  children: React.ReactNode;
-}) {
+function Block({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <View style={[styles.block, { borderColor: tint(accent, 0.18) }]}>
-      <ThemedText variant="overline" style={{ color: tint(accent, 0.9) }}>
-        {label}
-      </ThemedText>
+    <View style={styles.block}>
+      <ThemedText variant="overline">{label}</ThemedText>
       {children}
     </View>
   );
@@ -129,7 +117,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.hairline,
+    boxShadow: shadows.card,
     padding: spacing.lg,
   },
   quote: {

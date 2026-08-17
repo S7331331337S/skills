@@ -98,11 +98,18 @@ value is a token in `src/theme/`.
   uploaded. "Delete all sessions" in Settings clears them.
 - The room stops cleanly if you navigate away mid-deliberation, and one member
   failing doesn't abort the rest of the board.
-- Light-only by design. The rule that holds the visual system together: **the
-  interface is monochrome, and color means something.** Greys carry structure; a
-  hue appears only to identify a board member or report status. That's why the
-  brand gradient lives on the mark alone and the primary button is solid ink.
-- Member accents are deliberately deeper than the usual bright web palette — a
-  hue tuned for a near-black ground vibrates on white.
+- **Monochrome by design — there is no hue anywhere, including for status.**
+  Three rules carry everything the color used to:
+  - **Identity** is the monogram and the name. Members have no assigned color.
+  - **State** is fill vs outline — an active element is ink-filled, an inactive
+    one is a hairline circle. That reads faster than a hue change and survives
+    being printed or screenshotted in greyscale.
+  - **Depth** is a hairline plus a light shadow, or a soft gradient wash. The
+    page is lit from above; inverting that wash reads as a dirty page.
+- The Chair's ruling inverts to solid ink. With no accent to escalate to, that
+  flip is the strongest emphasis in the system, and it's reserved for the verdict.
+- One typeface (Inter), with optical tracking per size — negative on display
+  sizes, positive on small caps. That's most of what separates type that looks
+  considered from type that looks defaulted.
 - The palette is static rather than platform-semantic, so the same values can
   feed Reanimated styles and gradients.

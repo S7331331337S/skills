@@ -8,25 +8,24 @@ import {
 } from "react-native";
 
 import { useHaptics } from "@/hooks/use-haptics";
-import { colors, radius, spacing } from "@/theme";
+import { colors, radius, shadows, spacing } from "@/theme";
 
 import { ThemedText } from "./themed-text";
 
 /**
- * Primary is solid ink rather than a gradient: on a light ground, weight reads as
- * emphasis and color reads as meaning. The brand gradient stays on the mark.
+ * Emphasis is carried by fill weight, since there is no accent color to escalate
+ * to: filled ink > filled grey > hairline outline.
  */
 const variants = {
-  primary: { background: colors.ink, label: colors.onInk, bordered: false },
-  secondary: { background: colors.surfaceSunken, label: colors.ink, bordered: false },
-  ghost: { background: "transparent", label: colors.secondaryLabel, bordered: true },
-  danger: { background: colors.danger, label: colors.onTint, bordered: false },
+  primary: { background: colors.ink, label: colors.onInk, bordered: false, lift: true },
+  secondary: { background: colors.surfaceSunken, label: colors.label, bordered: false, lift: false },
+  ghost: { background: colors.surface, label: colors.secondaryLabel, bordered: true, lift: false },
 } as const;
 
 const sizes = {
-  sm: { paddingVertical: spacing.sm, paddingHorizontal: spacing.lg, variant: "caption" },
+  sm: { paddingVertical: 9, paddingHorizontal: spacing.lg, variant: "caption" },
   md: { paddingVertical: spacing.md, paddingHorizontal: spacing.xl, variant: "headline" },
-  lg: { paddingVertical: spacing.lg, paddingHorizontal: spacing.xl, variant: "headline" },
+  lg: { paddingVertical: 15, paddingHorizontal: spacing.xl, variant: "headline" },
 } as const;
 
 export function Button({
@@ -52,7 +51,7 @@ export function Button({
   const isOff = disabled || loading;
 
   // A disabled button becomes genuinely inert rather than a faded solid — fading
-  // ink to 35% on a light ground just reads as a grey button that should work.
+  // ink just reads as a grey button that ought to work.
   const background = disabled ? colors.surfaceSunken : v.background;
   const label = disabled ? colors.tertiaryLabel : v.label;
 
@@ -70,10 +69,11 @@ export function Button({
         {
           paddingHorizontal: s.paddingHorizontal,
           backgroundColor: background,
-          opacity: pressed && !isOff ? 0.85 : 1,
+          opacity: pressed && !isOff ? 0.9 : 1,
           transform: [{ scale: pressed && !isOff ? 0.985 : 1 }],
         },
         v.bordered && styles.bordered,
+        v.lift && !disabled && styles.lift,
         style,
       ]}
     >
@@ -99,7 +99,10 @@ const styles = StyleSheet.create({
   },
   bordered: {
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.borderStrong,
+    borderColor: colors.hairlineStrong,
+  },
+  lift: {
+    boxShadow: shadows.card,
   },
   body: {
     alignItems: "center",

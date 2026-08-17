@@ -8,11 +8,11 @@
     "scheme": "mstrmnd",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "backgroundColor": "#F4F5F7",
+    "backgroundColor": "#FAFAFB",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#F4F5F7"
+      "backgroundColor": "#FAFAFB"
     },
     "ios": {
       "supportsTablet": true,
@@ -42,7 +42,7 @@
         "expo-splash-screen",
         {
           "image": "./assets/splash-icon.png",
-          "backgroundColor": "#F4F5F7",
+          "backgroundColor": "#FAFAFB",
           "imageWidth": 180
         }
       ]

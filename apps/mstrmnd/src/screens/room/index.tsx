@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.lg,
     gap: spacing.md,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: colors.border,
+    borderBottomColor: colors.hairline,
   },
   headerRow: {
     flexDirection: "row",
@@ -247,9 +247,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.md,
-    backgroundColor: colors.ground,
+    backgroundColor: colors.canvas,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.borderStrong,
+    borderTopColor: colors.hairlineStrong,
   },
   missing: {
     flex: 1,

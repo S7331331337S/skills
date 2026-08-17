@@ -12,7 +12,7 @@ import { ThemedText } from "@/components/themed-text";
 import { useHaptics } from "@/hooks/use-haptics";
 import { useSessions } from "@/lib/session-store";
 import type { Session } from "@/lib/types";
-import { colors, radius, shadows, spacing, tint } from "@/theme";
+import { colors, radius, shadows, spacing } from "@/theme";
 
 export function Sessions() {
   const router = useRouter();
@@ -132,14 +132,15 @@ function statusText(session: Session): string {
   }
 }
 
+/**
+ * Status is carried by the word, not a hue — so the color only sets how loudly
+ * it's said: live and finished states in ink, resting states receded.
+ */
 function statusColor(session: Session): string {
   switch (session.status) {
-    case "complete":
-      return colors.success;
-    case "error":
-      return colors.danger;
     case "running":
-      return colors.cyan;
+    case "complete":
+      return colors.label;
     default:
       return colors.tertiaryLabel;
   }
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    borderColor: colors.hairline,
     padding: spacing.lg,
     gap: spacing.md,
   },
@@ -195,9 +196,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   verdict: {
-    backgroundColor: tint(colors.violet, 0.07),
+    backgroundColor: colors.surfaceSunken,
     borderLeftWidth: 2,
-    borderLeftColor: colors.violet,
+    borderLeftColor: colors.ink,
     borderRadius: radius.sm,
     borderCurve: "continuous",
     padding: spacing.md,

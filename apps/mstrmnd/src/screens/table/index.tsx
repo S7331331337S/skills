@@ -21,7 +21,7 @@ import { Wordmark } from "@/components/wordmark";
 import { useHaptics } from "@/hooks/use-haptics";
 import { useSessions } from "@/lib/session-store";
 import { useSettings } from "@/lib/settings-store";
-import { colors, radius, shadows, spacing } from "@/theme";
+import { colors, fonts, radius, shadows, spacing } from "@/theme";
 
 import { SeatPicker } from "./seat-picker";
 
@@ -109,7 +109,7 @@ export function Table() {
 
           {!hasKey ? (
             <Animated.View entering={FadeIn} style={styles.notice}>
-              <Ionicons name="flash-outline" size={15} color={colors.amber} />
+              <Ionicons name="flash-outline" size={15} color={colors.secondaryLabel} />
               <ThemedText variant="caption" style={{ flex: 1, color: colors.secondaryLabel }}>
                 Running the offline board. Add a Claude API key in Settings for a real
                 deliberation.
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    borderColor: colors.hairline,
     boxShadow: shadows.card,
     padding: spacing.md,
   },
@@ -253,10 +253,10 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    borderColor: colors.hairline,
     padding: spacing.lg,
     color: colors.label,
-    fontFamily: "SpaceGrotesk_400Regular",
+    fontFamily: fonts.regular,
     fontSize: 16,
     lineHeight: 23,
   },
@@ -281,10 +281,10 @@ const styles = StyleSheet.create({
   starter: {
     boxShadow: shadows.card,
     maxWidth: 230,
-    backgroundColor: colors.surfaceRaised,
+    backgroundColor: colors.surface,
     borderRadius: radius.full,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    borderColor: colors.hairline,
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.md,
   },
@@ -299,9 +299,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.md,
     gap: spacing.md,
-    backgroundColor: colors.ground,
+    backgroundColor: colors.canvas,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.borderStrong,
+    borderTopColor: colors.hairlineStrong,
   },
   dockMeta: {
     flexDirection: "row",

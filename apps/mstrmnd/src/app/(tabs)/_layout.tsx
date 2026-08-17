@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   bar: {
     position: "absolute",
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.border,
+    borderTopColor: colors.hairline,
     backgroundColor: Platform.OS === "web" ? colors.surface : "transparent",
     elevation: 0,
   },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     paddingTop: spacing.xs,
   },
   label: {
-    fontFamily: fonts.bodyMedium,
+    fontFamily: fonts.medium,
     fontSize: 11,
     lineHeight: 15,
     letterSpacing: 0.2,

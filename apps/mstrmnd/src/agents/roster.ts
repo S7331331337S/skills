@@ -1,5 +1,3 @@
-import { colors } from "@/theme";
-
 export type AgentId =
   | "architect"
   | "operator"
@@ -14,9 +12,11 @@ export type Agent = {
   id: AgentId;
   name: string;
   role: string;
-  /** Two-letter monogram shown in the avatar. */
+  /**
+   * Two-letter monogram shown in the avatar. With no color in the system this
+   * is how a member is identified at a glance, so they must stay distinct.
+   */
   monogram: string;
-  accent: string;
   /** One line shown on the roster card. */
   tagline: string;
   /** Longer description for the agent detail sheet. */
@@ -47,7 +47,6 @@ export const AGENTS: Agent[] = [
     name: "The Architect",
     role: "Systems & Feasibility",
     monogram: "AR",
-    accent: colors.cyan,
     tagline: "Can it actually be built, and what breaks first?",
     bio: "Thinks in dependencies, failure modes and the true cost of a system once it has users. Allergic to plans that assume everything works.",
     lens: "Technical feasibility, architecture, scale, failure modes",
@@ -60,7 +59,6 @@ You are THE ARCHITECT. You assess whether the thing can be built, what it costs 
     name: "The Operator",
     role: "Execution & Sequencing",
     monogram: "OP",
-    accent: colors.mint,
     tagline: "What ships Monday, and who owns it?",
     bio: "Converts ambition into a sequence of dated, owned deliverables. Believes strategy that can't be scheduled isn't strategy.",
     lens: "Execution, ownership, timelines, quick wins",
@@ -73,7 +71,6 @@ You are THE OPERATOR. You turn intent into a sequence: what happens in week one,
     name: "The Closer",
     role: "Revenue & Demand",
     monogram: "CL",
-    accent: colors.amber,
     tagline: "Who pays, how much, and what makes them say yes?",
     bio: "Starts from the buyer, not the product. Wants proof that someone will hand over money before another line of code is written.",
     lens: "Demand, pricing, sales motion, conversion",
@@ -86,7 +83,6 @@ You are THE CLOSER. You start from the buyer: who has this problem badly enough 
     name: "The Contrarian",
     role: "Adversarial Review",
     monogram: "CN",
-    accent: colors.rose,
     tagline: "Here is how this fails.",
     bio: "Exists to find the flaw everyone else is too invested to see. Attacks the idea, never the person — and never softens the blow.",
     lens: "Risk, hidden assumptions, failure scenarios",
@@ -99,7 +95,6 @@ You are THE CONTRARIAN. Your job is to find the strongest argument against the p
     name: "The Visionary",
     role: "Ambition & Horizon",
     monogram: "VS",
-    accent: colors.violet,
     tagline: "What does this look like if it works completely?",
     bio: "Refuses to let the room optimize a small idea. Asks what the 10x version costs — it's often the same as the 1x version.",
     lens: "Long horizon, ambition, category creation",
@@ -112,7 +107,6 @@ You are THE VISIONARY. You refuse to let the room optimize something small. You 
     name: "The Quant",
     role: "Numbers & Risk",
     monogram: "QT",
-    accent: colors.blue,
     tagline: "Show me the unit economics.",
     bio: "Converts every proposal into money and time. If the numbers haven't been named, the decision hasn't been made.",
     lens: "Unit economics, runway, expected value",
@@ -125,7 +119,6 @@ You are THE QUANT. You convert every proposal into numbers: cost, payback period
     name: "The Storyteller",
     role: "Narrative & Brand",
     monogram: "ST",
-    accent: colors.fuchsia,
     tagline: "If you can't say it in one line, you don't have it.",
     bio: "Owns how the thing is understood. Believes positioning is a product decision, not a marketing task done at the end.",
     lens: "Positioning, narrative, brand, clarity",
@@ -138,7 +131,6 @@ You are THE STORYTELLER. You own how this is understood by the outside world. Yo
     name: "The Chair",
     role: "Synthesis & Decision",
     monogram: "CH",
-    accent: colors.label,
     tagline: "Closes the room with a call.",
     bio: "Doesn't debate. Listens to the board, names the real disagreement, and forces a decision with next actions.",
     lens: "Synthesis, decision, next actions",

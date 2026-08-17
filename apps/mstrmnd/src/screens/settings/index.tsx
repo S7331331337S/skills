@@ -18,7 +18,7 @@ import { ThemedText } from "@/components/themed-text";
 import { useHaptics } from "@/hooks/use-haptics";
 import { useSessions } from "@/lib/session-store";
 import { MODELS, useSettings } from "@/lib/settings-store";
-import { colors, fonts, radius, shadows, spacing, tint } from "@/theme";
+import { colors, fonts, radius, shadows, spacing } from "@/theme";
 
 export function Settings() {
   const insets = useSafeAreaInsets();
@@ -80,7 +80,7 @@ export function Settings() {
           {apiKey ? (
             <View style={styles.keyActive}>
               <View style={styles.keyRow}>
-                <Ionicons name="shield-checkmark" size={18} color={colors.success} />
+                <Ionicons name="shield-checkmark" size={18} color={colors.ink} />
                 <View style={styles.flex}>
                   <ThemedText variant="headline">Claude connected</ThemedText>
                   <ThemedText variant="caption" style={styles.mask}>
@@ -145,7 +145,7 @@ export function Settings() {
                   <ThemedText variant="caption">{option.hint}</ThemedText>
                 </View>
                 {active ? (
-                  <Ionicons name="checkmark-circle" size={20} color={colors.violet} />
+                  <Ionicons name="checkmark-circle" size={20} color={colors.ink} />
                 ) : null}
               </Pressable>
             );
@@ -180,7 +180,7 @@ export function Settings() {
                   <ThemedText variant="caption">{option.hint}</ThemedText>
                 </View>
                 {active ? (
-                  <Ionicons name="checkmark-circle" size={20} color={colors.violet} />
+                  <Ionicons name="checkmark-circle" size={20} color={colors.ink} />
                 ) : null}
               </Pressable>
             );
@@ -196,8 +196,8 @@ export function Settings() {
             <Switch
               value={hapticsOn}
               onValueChange={setHaptics}
-              trackColor={{ true: colors.violet, false: colors.borderStrong }}
-              thumbColor={colors.label}
+              trackColor={{ true: colors.ink, false: colors.ink200 }}
+              thumbColor={colors.white}
             />
           </View>
         </Section>
@@ -259,11 +259,11 @@ const styles = StyleSheet.create({
   },
   keyActive: {
     gap: spacing.md,
-    backgroundColor: tint(colors.success, 0.06),
+    backgroundColor: colors.surfaceSunken,
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: tint(colors.success, 0.25),
+    borderColor: colors.hairline,
     padding: spacing.lg,
   },
   keyRow: {
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     gap: spacing.md,
   },
   mask: {
-    fontFamily: fonts.mono,
+    fontFamily: fonts.medium,
     color: colors.tertiaryLabel,
   },
   keyForm: {
@@ -282,19 +282,19 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    borderColor: colors.hairline,
     padding: spacing.lg,
   },
   input: {
-    backgroundColor: colors.ground,
+    backgroundColor: colors.canvas,
     borderRadius: radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    borderColor: colors.hairline,
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.lg,
     color: colors.label,
-    fontFamily: fonts.mono,
+    fontFamily: fonts.medium,
     fontSize: 14,
   },
   fine: {
@@ -309,13 +309,13 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.border,
+    borderColor: colors.hairline,
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.lg,
   },
   optionActive: {
-    borderColor: tint(colors.violet, 0.4),
-    backgroundColor: tint(colors.violet, 0.06),
+    borderColor: colors.hairlineStrong,
+    backgroundColor: colors.surface,
   },
   pressed: {
     opacity: 0.7,

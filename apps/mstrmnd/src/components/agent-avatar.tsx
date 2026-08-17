@@ -10,16 +10,19 @@ import Animated, {
 } from "react-native-reanimated";
 
 import type { Agent } from "@/agents/roster";
-import { colors, fonts, radius, tint } from "@/theme";
+import { alpha, colors, fonts } from "@/theme";
 
 import { ThemedText } from "./themed-text";
 
-const SIZES = { sm: 32, md: 44, lg: 60 } as const;
+const SIZES = { sm: 34, md: 44, lg: 58 } as const;
 
 /**
- * Monogram avatar in the member's accent. When `speaking`, a ring behind it
- * breathes — the room's only ambient motion, so the eye lands on whoever has
- * the floor.
+ * Monogram avatar. With no color in the system, state is carried by **fill vs
+ * outline**: an inactive member is a hairline circle, an active one is filled
+ * ink. That reads faster than a hue change and survives being printed.
+ *
+ * While a member holds the floor a soft ring breathes behind them — the only
+ * ambient motion in the room, so the eye lands on whoever is speaking.
  */
 export function AgentAvatar({
   agent,
@@ -38,35 +41,30 @@ export function AgentAvatar({
   useEffect(() => {
     if (speaking) {
       pulse.value = withRepeat(
-        withTiming(1, { duration: 1100, easing: Easing.inOut(Easing.quad) }),
+        withTiming(1, { duration: 1400, easing: Easing.inOut(Easing.quad) }),
         -1,
         true,
       );
     } else {
       cancelAnimation(pulse);
-      pulse.value = withTiming(0, { duration: 200 });
+      pulse.value = withTiming(0, { duration: 220 });
     }
     return () => cancelAnimation(pulse);
   }, [speaking, pulse]);
 
   const ringStyle = useAnimatedStyle(() => ({
-    opacity: 0.15 + pulse.value * 0.5,
-    transform: [{ scale: 1 + pulse.value * 0.22 }],
+    opacity: 0.06 + pulse.value * 0.16,
+    transform: [{ scale: 1 + pulse.value * 0.3 }],
   }));
+
+  const filled = speaking || !dimmed;
 
   return (
     <View style={{ width: dimension, height: dimension }}>
       {speaking ? (
         <Animated.View
           pointerEvents="none"
-          style={[
-            styles.ring,
-            {
-              borderRadius: dimension / 2,
-              borderColor: agent.accent,
-            },
-            ringStyle,
-          ]}
+          style={[styles.ring, { borderRadius: dimension / 2 }, ringStyle]}
         />
       ) : null}
 
@@ -75,20 +73,17 @@ export function AgentAvatar({
           styles.body,
           {
             borderRadius: dimension / 2,
-            // Alphas are low: over white these become the pale chips the rest of
-            // the interface is built from, not saturated blocks.
-            backgroundColor: tint(agent.accent, dimmed ? 0.05 : 0.11),
-            borderColor: tint(agent.accent, dimmed ? 0.14 : 0.32),
-            opacity: dimmed ? 0.6 : 1,
+            backgroundColor: filled ? colors.ink : "transparent",
+            borderColor: filled ? colors.ink : colors.hairlineStrong,
           },
         ]}
       >
         <ThemedText
           style={{
-            fontFamily: fonts.monoMedium,
-            fontSize: dimension * 0.3,
-            letterSpacing: 0.5,
-            color: agent.accent,
+            fontFamily: fonts.semibold,
+            fontSize: dimension * 0.31,
+            letterSpacing: 0.3,
+            color: filled ? colors.onInk : colors.tertiaryLabel,
           }}
         >
           {agent.monogram}
@@ -105,15 +100,12 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    borderWidth: 1.5,
+    backgroundColor: alpha(1),
   },
   body: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderCurve: "continuous",
-    backgroundColor: colors.surface,
-    borderRadius: radius.full,
   },
 });

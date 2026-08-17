@@ -1,55 +1,68 @@
 /**
- * MSTRMND palette — light editorial.
+ * MSTRMND palette — monochrome.
  *
- * The rule that holds the whole thing together: **the interface is monochrome,
- * and color means something.** Greys carry structure; a hue only appears to
- * identify a board member or report status. Nothing is tinted for decoration.
+ * There is no hue anywhere in this system, including for status. Everything is
+ * carried by value, weight and space:
  *
- * Values are static (not platform-semantic) so they can be passed straight into
- * Reanimated styles and gradients.
+ * - **Identity** is the monogram and the name, never a color.
+ * - **State** is fill vs outline — an active element is ink-filled, an inactive
+ *   one is a hairline.
+ * - **Depth** is a hairline plus a light shadow, or a soft gradient wash. Never
+ *   a tint.
+ *
+ * The greys carry a trace of warmth (a red channel a step above blue). Perfectly
+ * neutral greys read cold and cheap at large areas; the warmth is invisible on
+ * its own and reads as expensive in aggregate.
  */
-export const colors = {
-  // Surfaces, ground upward.
-  ground: "#F4F5F7", // page behind everything
-  surface: "#FFFFFF", // cards, inputs
-  surfaceRaised: "#FFFFFF",
-  surfaceSunken: "#EDEEF1", // active pill, secondary button, wells
-
-  // Hairlines. Dark at low alpha rather than a grey, so they sit on any surface.
-  border: "#11131A0F",
-  borderStrong: "#11131A1F",
-
-  // Text.
-  ink: "#16171A", // primary text and primary actions
-  label: "#16171A",
-  secondaryLabel: "#63676E",
-  tertiaryLabel: "#9096A0",
-
-  // Member accents. Deepened from the usual bright web palette — a hue that
-  // reads well on near-black will vibrate on white.
-  violet: "#6D28D9",
-  cyan: "#0E7490",
-  amber: "#B45309",
-  rose: "#E11D48",
-  mint: "#047857",
-  blue: "#2563EB",
-  fuchsia: "#A21CAF",
-
-  // Fixed contrast colors.
-  onInk: "#FFFFFF", // text on the ink button
-  onTint: "#FFFFFF",
-
-  // Status. The only color allowed to appear without identifying a member.
-  danger: "#DC2626",
-  success: "#059669",
+const ramp = {
+  ink: "#0B0B0C",
+  ink800: "#26262A",
+  ink600: "#55555C",
+  ink500: "#6E6E76",
+  ink400: "#8E8E97",
+  ink300: "#B4B4BC",
+  ink200: "#D8D8DD",
+  ink100: "#E9E9EC",
+  ink50: "#F4F4F6",
+  paper: "#FAFAFB",
+  white: "#FFFFFF",
 } as const;
 
-/** Signature gradient — reserved for the brand mark alone, never for chrome. */
-export const brandGradient = [colors.violet, colors.cyan] as const;
+export const colors = {
+  ...ramp,
 
-/** Translucent wash of a hue, for member-colored surfaces and borders. */
-export function tint(hex: string, alpha: number): string {
-  const a = Math.round(Math.max(0, Math.min(1, alpha)) * 255)
+  // Surfaces.
+  canvas: ramp.paper,
+  surface: ramp.white,
+  surfaceSunken: ramp.ink50,
+  surfaceInverse: ramp.ink,
+
+  // Hairlines. Ink at low alpha rather than a flat grey, so one value works on
+  // both paper and white.
+  hairline: "#0B0B0C14",
+  hairlineStrong: "#0B0B0C24",
+
+  // Text.
+  label: ramp.ink,
+  secondaryLabel: ramp.ink500,
+  tertiaryLabel: ramp.ink400,
+  quaternaryLabel: ramp.ink300,
+
+  // On inverted (ink-filled) surfaces.
+  onInk: ramp.white,
+  onInkMuted: "#FFFFFFA6",
+} as const;
+
+/**
+ * The page is lit from above: a soft white bleed at the top settling into the
+ * canvas grey. This is the monochrome stand-in for a colored glow — inverting it
+ * (grey at the top) reads as a dirty page rather than a lit one.
+ */
+export const wash = ["#FFFFFFFF", "#FFFFFF00"] as const;
+
+/** Ink at an alpha, for hairlines, scrims and pressed states. */
+export function alpha(amount: number, hex: string = ramp.ink): string {
+  const a = Math.round(Math.max(0, Math.min(1, amount)) * 255)
     .toString(16)
     .padStart(2, "0");
   return `${hex}${a}`;

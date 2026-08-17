@@ -1,42 +1,41 @@
-import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, View } from "react-native";
 
-import { brandGradient, colors, fonts, radius } from "@/theme";
+import { colors, fonts } from "@/theme";
 
 import { ThemedText } from "./themed-text";
 
 /**
- * Brand lockup: the mark (the board, ringed around the chair) beside the name.
- *
- * The gradient lives here and nowhere else — it's the one piece of color in the
- * app that isn't identifying a member or reporting status.
+ * Brand lockup: the mark — the board ringed around the chair — beside the name.
+ * Solid ink, no gradient. The mark is a shape, not a color.
  */
-export function Wordmark({ size = 20 }: { size?: number }) {
-  const mark = size * 1.35;
+export function Wordmark({ size = 17 }: { size?: number }) {
+  const mark = size * 1.45;
+  const chair = mark * 0.32;
 
   return (
     <View style={styles.row}>
-      <View style={[styles.mark, { width: mark, height: mark, borderRadius: mark / 2 }]}>
-        <LinearGradient
-          colors={[...brandGradient]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={StyleSheet.absoluteFill}
-        />
+      <View
+        style={[
+          styles.mark,
+          { width: mark, height: mark, borderRadius: mark / 2 },
+        ]}
+      >
         <View
-          style={[
-            styles.chair,
-            { width: mark * 0.34, height: mark * 0.34, borderRadius: mark * 0.17 },
-          ]}
+          style={{
+            width: chair,
+            height: chair,
+            borderRadius: chair / 2,
+            backgroundColor: colors.surface,
+          }}
         />
       </View>
 
       <ThemedText
         style={{
-          fontFamily: fonts.display,
+          fontFamily: fonts.bold,
           fontSize: size,
-          letterSpacing: size * 0.06,
-          color: colors.ink,
+          letterSpacing: size * 0.1,
+          color: colors.label,
         }}
       >
         MSTRMND
@@ -49,16 +48,11 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 9,
+    gap: 10,
   },
   mark: {
     alignItems: "center",
     justifyContent: "center",
-    overflow: "hidden",
-    borderCurve: "continuous",
-    borderRadius: radius.full,
-  },
-  chair: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.ink,
   },
 });

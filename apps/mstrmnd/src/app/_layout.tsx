@@ -1,13 +1,9 @@
 import {
-  JetBrainsMono_400Regular,
-  JetBrainsMono_500Medium,
-} from "@expo-google-fonts/jetbrains-mono";
-import {
-  SpaceGrotesk_400Regular,
-  SpaceGrotesk_500Medium,
-  SpaceGrotesk_600SemiBold,
-  SpaceGrotesk_700Bold,
-} from "@expo-google-fonts/space-grotesk";
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+} from "@expo-google-fonts/inter";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -25,12 +21,10 @@ void SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    SpaceGrotesk_400Regular,
-    SpaceGrotesk_500Medium,
-    SpaceGrotesk_600SemiBold,
-    SpaceGrotesk_700Bold,
-    JetBrainsMono_400Regular,
-    JetBrainsMono_500Medium,
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
   });
 
   const settingsHydrated = useSettings((s) => s.hydrated);
@@ -49,7 +43,7 @@ export default function RootLayout() {
 
   // Holding the splash until state is loaded keeps the first frame from
   // flashing an empty roster or the wrong engine badge.
-  if (!ready) return <View style={{ flex: 1, backgroundColor: colors.ground }} />;
+  if (!ready) return <View style={{ flex: 1, backgroundColor: colors.canvas }} />;
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -58,7 +52,7 @@ export default function RootLayout() {
         <Stack
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: colors.ground },
+            contentStyle: { backgroundColor: colors.canvas },
             animation: "slide_from_right",
           }}
         >
