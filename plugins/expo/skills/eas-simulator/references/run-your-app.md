@@ -33,6 +33,34 @@ done
 
 If you need the id explicitly, it's `EAS_SIMULATOR_SESSION_ID` in `.env.eas-simulator`. `start` also prints a `webPreviewUrl` (iOS-only browser preview — surface it per the SKILL.md "watch it live" rules) and a job-run URL. Once live, the session env is in `.env.eas-simulator`, so `simulator:exec` works.
 
+## Targeting a device — iPad, or several at once
+
+**Boot a specific device at session start** with `eas simulator:start --device "<name|UDID>"` (eas-cli ≥ 22.4.0) — this is how you run on an iPad instead of the default iPhone:
+
+```bash
+npx --yes eas-cli@latest simulator:start --platform ios --device "iPad Pro 13-inch (M5)" \
+  --non-interactive --name "iPad run"
+# then install / launch / screenshot as usual — the iPad renders larger (e.g. 1032x1376).
+```
+
+The value must be a device the **remote runner** offers (NOT your local Xcode set), by name **or** UDID. List them from a live session:
+
+```bash
+npx --yes eas-cli@latest simulator:exec npx agent-device@latest devices --json
+```
+
+Available iOS devices today: iPhone 17 / 17 Pro / 17 Pro Max / 17e / Air, and iPad (A16), iPad Air 11"/13" (M4), iPad mini (A17 Pro), iPad Pro 11"/13" (M5).
+
+**Switch devices mid-session:** a session exposes ~16 sims but boots only one at start. Pass the **controller's** global `--device "<name>"` on `open` (and other verbs) to boot + target another; it stays booted alongside the first, so pass `--device` on each verb to say which it hits.
+
+```bash
+npx --yes eas-cli@latest simulator:exec npx agent-device@latest open <bundleId> "<devClientURL>" \
+  --platform ios --device "iPad Pro 13-inch (M5)" --relaunch
+```
+
+- ⚠️ The **controller** `--device` resolves by **NAME only** — a udid returns `DEVICE_NOT_FOUND`. (The start-time CLI `--device` above takes either.)
+- `devices` reports each device's name, kind, and booted state, but **not** its iOS version.
+
 ---
 
 ## Mode A — Local release build (embedded JS, no Metro)
