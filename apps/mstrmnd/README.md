@@ -44,6 +44,13 @@ npm test           # bun test — SSE stream decoding
 npm run export:web # full Metro bundle; catches import errors tsc can't
 ```
 
+## Shipping it
+
+Build and store-submission steps are in [`SHIPPING.md`](./SHIPPING.md); store
+listing copy is in [`store/listing.md`](./store/listing.md). `eas.json` carries
+`development`, `preview` and `production` profiles — `preview` is the fastest way
+to get it onto a real phone.
+
 ## The two engines
 
 **Offline board (default).** With no API key the app runs scripted stand-ins. Every

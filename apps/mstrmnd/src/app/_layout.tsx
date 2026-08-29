@@ -5,7 +5,7 @@ import {
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -28,6 +28,7 @@ export default function RootLayout() {
   });
 
   const settingsHydrated = useSettings((s) => s.hydrated);
+  const onboarded = useSettings((s) => s.onboarded);
   const sessionsHydrated = useSessions((s) => s.hydrated);
 
   useEffect(() => {
@@ -49,6 +50,13 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <StatusBar style="dark" />
+        {/*
+          Redirect rather than a navigation effect: this renders before the tabs
+          mount, so a first-time user never sees the Table flash behind the
+          welcome screen.
+        */}
+        {onboarded ? null : <Redirect href="/welcome" />}
+
         <Stack
           screenOptions={{
             headerShown: false,
@@ -57,6 +65,7 @@ export default function RootLayout() {
           }}
         >
           <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="welcome" options={{ animation: "fade" }} />
           <Stack.Screen name="room/[id]" />
           <Stack.Screen
             name="agent/[id]"

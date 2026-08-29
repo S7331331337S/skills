@@ -20,12 +20,15 @@ type Prefs = {
   model: ModelId;
   depth: Depth;
   haptics: boolean;
+  /** False until the welcome screen has been dismissed once. */
+  onboarded: boolean;
 };
 
 const DEFAULT_PREFS: Prefs = {
   model: "claude-sonnet-5",
   depth: "full",
   haptics: true,
+  onboarded: false,
 };
 
 type SettingsState = Prefs & {
@@ -35,6 +38,7 @@ type SettingsState = Prefs & {
   setModel(model: ModelId): void;
   setDepth(depth: Depth): void;
   setHaptics(haptics: boolean): void;
+  setOnboarded(onboarded: boolean): void;
   setApiKey(key: string | null): Promise<void>;
 };
 
@@ -103,6 +107,10 @@ export const useSettings = create<SettingsState>((set, get) => ({
     set({ haptics });
     void persist(get());
   },
+  setOnboarded(onboarded) {
+    set({ onboarded });
+    void persist(get());
+  },
   async setApiKey(key) {
     const trimmed = key?.trim() || null;
     set({ apiKey: trimmed });
@@ -115,6 +123,7 @@ function persist(state: SettingsState): Promise<void> {
     model: state.model,
     depth: state.depth,
     haptics: state.haptics,
+    onboarded: state.onboarded,
   };
   return AsyncStorage.setItem(PREFS_KEY, JSON.stringify(prefs)).catch(() => {});
 }

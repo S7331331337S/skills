@@ -9,14 +9,23 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "backgroundColor": "#FAFAFB",
+    "primaryColor": "#0B0B0C",
+    "description": "A mastermind board that argues. Put a decision to seven AI specialists, each locked to one lens, and get a ruling with three things to do this week.",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#FAFAFB"
     },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "ai.mstrmnd.board"
+      "bundleIdentifier": "ai.mstrmnd.board",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "ai.mstrmnd.board",
@@ -27,7 +36,9 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": ["android.permission.INTERNET", "android.permission.VIBRATE"],
+      "blockedPermissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "favicon": "./assets/favicon.png",
