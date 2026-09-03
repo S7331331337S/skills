@@ -1,9 +1,13 @@
 # Shipping MSTRMND
 
 Everything in the repo is build-ready. The commands below are the parts that need
-your credentials, so they have to run from your machine — the environment this was
-built in has `api.expo.dev` blocked at the network layer, which is what every `eas`
-command talks to.
+your credentials.
+
+They have to run from your machine because of two separate limits in the
+environment this was built in: `api.expo.dev` is blocked at the network layer, so
+the `eas` CLI cannot reach it; and while an Expo MCP connector can reach EAS
+without that proxy, it has no project-creation tool, so the first `eas init` is
+yours either way.
 
 > **Run every command from `apps/mstrmnd/`.** The repository root has its own
 > `app.json` with a different EAS project id (it belongs to the `expo/skills`
@@ -31,6 +35,18 @@ npx eas-cli@latest init
 
 `eas init` creates the project and writes `extra.eas.projectId` into `app.json`.
 Commit that change — builds need it.
+
+### Connect the GitHub repo (worth doing)
+
+In the Expo dashboard for the project: **Project settings → GitHub → connect** this
+repository, and set the base directory to `apps/mstrmnd`.
+
+This is optional for CLI builds but it unlocks a second path: EAS can then build
+straight from a commit on GitHub, with no local checkout and no local credentials.
+That path is also what an assistant with the Expo MCP connector can drive for you —
+`build_run` takes a build profile, a git ref and a base directory, so once the
+project exists and the repo is connected, "build the preview profile from main" is
+a single call rather than something you run by hand.
 
 If you want over-the-air updates (push JS changes without a store review):
 
